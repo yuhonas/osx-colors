@@ -55,13 +55,8 @@ def min_color_diff( color_to_match, colors):
 
     return min(color_distances)
 
-def closest_accent_color_to(color):
+def closest_colors_to(color):
     """ returns the closest apple accent color to the one provided """
     closest_apple_color = min_color_diff(hex_to_rgb(color), APPLE_ACCENT_COLORS)[1]
 
-    # if output == 'rgb':
-    #     for rgb, apple_color in APPLE_ACCENT_COLORS.items():
-    #         if apple_color == closest_apple_color:
-    #             return rgb
-    # else:
-    return closest_apple_color
+    return((closest_apple_color, APPLE_HIGHLIGHT_COLORS[closest_apple_color]))
