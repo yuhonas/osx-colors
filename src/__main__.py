@@ -20,7 +20,12 @@ parser = argparse.ArgumentParser(
   ''')
 )
 
-parser.add_argument('action', choices=['set'], help='action to perform')
+# NOTE: This is more of a placeholder at current to support potentially adding a
+# read action or others and it also just looks plain weird without a verb after the commandline
+parser.add_argument('action',
+    choices=['set'],
+    help='action to perform, only \'set\' is supported at current'
+)
 parser.add_argument('color', help='color to set in hex eg. 007aff leading # is optional')
 parser.add_argument('-s','--skip-restart',
     action="store_true",
@@ -33,17 +38,28 @@ parser.add_argument('-v', '--version',
 
 args = parser.parse_args()
 
-accent_color, highlight_color = closest_colors_to(args.color)
+closest_color_name, closest_color = closest_colors_to(args.color)
 
-logging.info("Setting the 'Accent Color' to the closest color to '%s'", args.color)
-logging.info("Setting the 'Highlight Color' to the closest color to '%s'", args.color)
+logging.info("Searching for the closest Apple color to '%s' we found '%s'",
+  args.color,
+  closest_color_name
+)
+
+logging.info("Setting the 'Accent Color' to '%s'", closest_color_name)
+logging.info("Setting the 'Highlight Color' to '%s'", closest_color_name)
 
 logging.debug(
-  run(['defaults', 'write', '-g', 'AppleAccentColor', '-int', str(accent_color)], check=True)
+  run([
+    'defaults', 'write', '-g', 'AppleAccentColor', '-int', str(closest_color.accent_color_id)],
+    check=True
+  )
 )
 
 logging.debug(
-  run(['defaults', 'write', '-g', 'AppleHighlightColor', '-string', highlight_color ], check=True)
+  run(
+    ['defaults', 'write', '-g', 'AppleHighlightColor', '-string', closest_color.highlight_color_id ],
+    check=True
+  )
 )
 
 if not args.skip_restart:
