@@ -47,7 +47,9 @@ can be customized to any color in the UI (from what I can see)
 
 ### Installing
 
-TBD
+```
+pip install osx-colors
+```
 
 ## License
 
