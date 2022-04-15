@@ -3,8 +3,10 @@ from subprocess import run
 import logging
 from textwrap import dedent
 
-from .color_utils import closest_colors_to
+from .color_utils import closest_colors_to, APPLE_COLORS
 from . import settings
+
+SUPPORTED_COLOR_KEYWORD_ARGS = "|".join(APPLE_COLORS)
 
 logging.basicConfig(format='%(message)s', level=logging.INFO)
 logger = logging.getLogger()
@@ -14,19 +16,25 @@ parser = argparse.ArgumentParser(
   prog=settings.get_app_name(),
   formatter_class=argparse.RawDescriptionHelpFormatter,
   epilog=dedent(f'''
-    Example:
-    # To set osx to use Apple Green
-    $ {settings.get_app_name()} set 62ba46
+    Examples:
+    # To set osx to use apples green
+    $ {settings.get_app_name()} set green
+
+    # To set the color based on closest matching apple color to a supplied one
+    $ {settings.get_app_name()} set ff001d
   ''')
 )
 
 # NOTE: This is more of a placeholder at current to support potentially adding a
-# read action or others and it also just looks plain weird without a verb after the commandline
+# read action or others and it also just looks plain weird without a verb after the command
 parser.add_argument('action',
     choices=['set'],
-    help='action to perform, only \'set\' is supported at current'
+    help='action to perform, only \'set\' is supported currently'
 )
-parser.add_argument('color', help='color to set in hex eg. 007aff leading # is optional')
+
+parser.add_argument('color',
+    help=f"color to set ({SUPPORTED_COLOR_KEYWORD_ARGS}) or a hex color"
+)
 parser.add_argument('-s','--skip-restart',
     action="store_true",
     help='skip restarting Finder, Spotlight and System Preferences'
@@ -38,12 +46,16 @@ parser.add_argument('-v', '--version',
 
 args = parser.parse_args()
 
-closest_color_name, closest_color = closest_colors_to(args.color)
+if args.color in APPLE_COLORS:
+    closest_color_name = args.color
+    closest_color = APPLE_COLORS[args.color]
+else:
+    closest_color_name, closest_color = closest_colors_to(args.color)
 
-logging.info("Searching for the closest Apple color to '%s' we found '%s'",
-  args.color,
-  closest_color_name
-)
+    logging.info("Searching for the closest Apple color to '%s' we found '%s'",
+      args.color,
+      closest_color_name
+    )
 
 logging.info("Setting the 'Accent Color' to '%s'", closest_color_name)
 logging.info("Setting the 'Highlight Color' to '%s'", closest_color_name)

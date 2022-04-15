@@ -4,14 +4,14 @@ from collections import namedtuple
 AppleColor = namedtuple('AppleColor', 'rgb accent_color_id highlight_color_id')
 
 APPLE_COLORS = {
-    'Blue': AppleColor((0, 122, 255), 4, "0.698039 0.843137 1.000000 Blue"),
-    'Purple': AppleColor((165, 80, 167), 5, "0.968627 0.831373 1.000000 Purple"),
-    'Pink': AppleColor((247, 79, 158), 6, "1.000000 0.749020 0.823529 Pink"),
-    'Red': AppleColor((255, 82, 87), 0, "1.000000 0.733333 0.721569 Red"),
-    'Orange': AppleColor((247, 130, 27), 1, "1.000000 0.874510 0.701961 Orange"),
-    'Yellow': AppleColor((255, 198, 0), 2, "1.000000 0.937255 0.690196 Yellow"),
-    'Green': AppleColor((98, 186, 70), 3, "0.752941 0.964706 0.678431 Green"),
-    'Graphite': AppleColor((140, 140, 140), "-1", "0.847059 0.847059 0.862745 Graphite")
+    'blue': AppleColor((0, 122, 255), 4, "0.698039 0.843137 1.000000 Blue"),
+    'purple': AppleColor((165, 80, 167), 5, "0.968627 0.831373 1.000000 Purple"),
+    'pink': AppleColor((247, 79, 158), 6, "1.000000 0.749020 0.823529 Pink"),
+    'red': AppleColor((255, 82, 87), 0, "1.000000 0.733333 0.721569 Red"),
+    'orange': AppleColor((247, 130, 27), 1, "1.000000 0.874510 0.701961 Orange"),
+    'yellow': AppleColor((255, 198, 0), 2, "1.000000 0.937255 0.690196 Yellow"),
+    'green': AppleColor((98, 186, 70), 3, "0.752941 0.964706 0.678431 Green"),
+    'graphite': AppleColor((140, 140, 140), "-1", "0.847059 0.847059 0.862745 Graphite")
 }
 
 def hex_to_rgb(color):
