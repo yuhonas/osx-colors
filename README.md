@@ -1,8 +1,8 @@
-# osx-colors [![ci](https://github.com/yuhonas/osx-colors/workflows/ci/badge.svg)](https://github.com/yuhonas/osx-colors/actions/workflows/ci.yml)
+# osx-colors [![ci](https://github.com/yuhonas/osx-colors/workflows/ci/badge.svg)](https://github.com/yuhonas/osx-colors/actions/workflows/ci.yml) ![./LICENSE](https://img.shields.io/badge/license-MIT-blue.svg)
 
 Sane command line color customisation for osx, no more fiddling about with `defaults`, internal apple color constants and rgb color codes
 
-Say you want to change your Accent/Highlight Color to Green like this
+Say you want to change your `Accent` and `Highlight` Color to `Green` like this
 
 ![](./osx-general-preference-pane.jpg)
 

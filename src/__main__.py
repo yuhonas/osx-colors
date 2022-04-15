@@ -12,7 +12,7 @@ logging.basicConfig(format='%(message)s', level=logging.INFO)
 logger = logging.getLogger()
 
 parser = argparse.ArgumentParser(
-  description='Sets the limited number of colors apple allows us too',
+  description='Sane command line color customization for osx',
   prog=settings.get_app_name(),
   formatter_class=argparse.RawDescriptionHelpFormatter,
   epilog=dedent(f'''
