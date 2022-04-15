@@ -1,5 +1,4 @@
-# osx-colors
-[![ci](https://github.com/yuhonas/osx-colors/actions/workflows/ci.yml/badge.svg)](https://github.com/yuhonas/osx-colors/actions/workflows/ci.yml)
+# osx-colors [![ci](https://github.com/yuhonas/osx-colors/workflows/ci/badge.svg)](https://github.com/yuhonas/osx-colors/actions/workflows/ci.yml)
 ## Description
 
 An in-depth paragraph about your project and overview of use.
