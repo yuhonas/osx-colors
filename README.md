@@ -29,14 +29,25 @@ and set it to this, this is awesome if you use [pywal](https://github.com/dylana
 
 ## Why
 
-I'm a huge fan of [pywal](https://github.com/dylanaraps/pywal) and what I thought would really be the cherry on
-top would be `Accent` & `Highlight` colors that were based on the color palette of the wallaper, however I wasn't able
-to find anything that did it and color management from the commandline simply sucked, so I wrote this for my personal needs
+I'm a huge fan of [pywal](https://github.com/dylanaraps/pywal) and what I thought would complete the color scheme would be `Accent` & `Highlight` colors in osx that were based on the generated color palette of the wallaper, however I wasn't able to find anything that did it and color management from the commandline simply sucked, so I wrote this for my personal needs and the final product looks something like this
+
+After you have generated a wallpaper eg.
+
+```
+$ wal -i ~/Pictures # will select a random wallpaper from the dir
+```
+
+To set your accent/highlight color based on the wallpaper pallete generated from pywal, requires [jq](https://github.com/stedolan/jq)
+
+```
+$ osx-colors set $(cat ~/.cache/wal/colors.json | jq --raw-output '.colors.color9')
+```
 
 ## Limitations
 
-At present you can only set both the `AccentColor` and `HighlightColor` together, however the `HighlightColor`
+* At present you can only set both the `AccentColor` and `HighlightColor` together, however the `HighlightColor`
 can be customized to any color in the UI (from what I can see)
+* Finding the nearest "color" isn't perfect but i've found it good enough, welcome alternative algorithms/solutions to this
 
 ## Getting Started
 
@@ -79,8 +90,8 @@ $ osx-colors --help
 
 ## TODO
 
-[] Better example of the wallpaper functionality, it's why I built it
-[] Ability to get colors
+- [ ] Ability to get colors - not sure of use case?
+- [ ] Ability to set a custom `Highlight` color
 
 ## License
 
