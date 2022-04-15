@@ -1,9 +1,9 @@
 setup: Pipfile Pipfile.lock
-	 		pip install --quiet pipenv
-			pipenv install --dev
+	 	pip install --quiet pipenv
+		pipenv install --dev
 
 lint:
-			pipenv run pylint ./src
+		pipenv run pylint ./src
 
 test: lint
-			python -m unittest
+		python -m unittest
