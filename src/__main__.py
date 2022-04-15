@@ -8,47 +8,47 @@ from . import settings
 
 SUPPORTED_COLOR_KEYWORD_ARGS = "|".join(APPLE_COLORS)
 
-logging.basicConfig(format='%(message)s', level=logging.INFO)
+logging.basicConfig(format="%(message)s", level=logging.INFO)
+
 
 def get_args():
-    """ Get the script arguments """
+    """Get the script arguments"""
     parser = argparse.ArgumentParser(
-      description='Sane command line color customization for osx',
-      prog=settings.get_app_name(),
-      formatter_class=argparse.RawDescriptionHelpFormatter,
-      epilog=dedent(f'''
+        description="Sane command line color customization for osx",
+        prog=settings.get_app_name(),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=dedent(
+            f"""
         Examples:
         # To set osx to use apples green
         $ {settings.get_app_name()} set green
 
         # To set the color based on closest matching apple color to a supplied one
         $ {settings.get_app_name()} set ff001d
-      ''')
+      """
+        ),
     )
 
     # NOTE: This is more of a placeholder at current to support potentially adding a
     # read action or others and it also just looks plain weird without a verb after the command
-    parser.add_argument('action',
-        choices=['set'],
-        help='action to perform, only \'set\' is supported currently'
+    parser.add_argument(
+        "action", choices=["set"], help="action to perform, only 'set' is supported currently"
     )
 
-    parser.add_argument('color',
-        help=f"color to set ({SUPPORTED_COLOR_KEYWORD_ARGS}) or a hex color"
-    )
-    parser.add_argument('-s','--skip-restart',
+    parser.add_argument("color", help=f"color to set ({SUPPORTED_COLOR_KEYWORD_ARGS}) or a hex color")
+    parser.add_argument(
+        "-s",
+        "--skip-restart",
         action="store_true",
-        help='skip restarting Finder, Spotlight and System Preferences'
+        help="skip restarting Finder, Spotlight and System Preferences",
     )
-    parser.add_argument('-v', '--version',
-        action='version',
-        version=f'%(prog)s {settings.get_version()}'
-    )
+    parser.add_argument("-v", "--version", action="version", version=f"%(prog)s {settings.get_version()}")
 
     return parser
 
+
 def parse_args(parser):
-    """ Parse script arguments """
+    """Parse script arguments"""
     args = parser.parse_args()
 
     logger = logging.getLogger()
@@ -59,41 +59,46 @@ def parse_args(parser):
     else:
         closest_color_name, closest_color = closest_colors_to(args.color)
 
-        logger.info("Searching for the closest Apple color to '%s' I found '%s'",
-          args.color,
-          closest_color_name
+        logger.info(
+            "Searching for the closest Apple color to '%s' I found '%s'", args.color, closest_color_name
         )
 
     logger.info("Setting the 'Accent Color' to '%s'", closest_color_name)
     logger.info("Setting the 'Highlight Color' to '%s'", closest_color_name)
 
     logger.debug(
-      run([
-        'defaults', 'write', '-g', 'AppleAccentColor', '-int', str(closest_color.accent_color_id)],
-        check=True
-      )
+        run(
+            ["defaults", "write", "-g", "AppleAccentColor", "-int", str(closest_color.accent_color_id)],
+            check=True,
+        )
     )
 
     logger.debug(
-      run(
-        ['defaults', 'write', '-g', 'AppleHighlightColor', '-string', closest_color.highlight_color_id ],
-        check=True
-      )
+        run(
+            ["defaults", "write", "-g", "AppleHighlightColor", "-string", closest_color.highlight_color_id],
+            check=True,
+        )
     )
 
     if not args.skip_restart:
-        logger.info(dedent('''
+        logger.info(
+            dedent(
+                """
           Restarting Finder, Spotlight and System Preferences, others may need to be restarted manually
-        ''').strip())
+        """
+            ).strip()
+        )
 
-        run(['killall', 'Finder'], check=True)
-        run(['killall', 'Spotlight'], check=True)
-        run(['osascript', '-e', 'tell application "System Preferences" to quit'], check=True)
+        run(["killall", "Finder"], check=True)
+        run(["killall", "Spotlight"], check=True)
+        run(["osascript", "-e", 'tell application "System Preferences" to quit'], check=True)
+
 
 def main():
     parser = get_args()
 
     parse_args(parser)
+
 
 if __name__ == "__main__":
     main()
