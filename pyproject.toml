@@ -7,5 +7,5 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools_scm]
-write_to = "build/_version.py"
+version_scheme="no-guess-dev"
 local_scheme="no-local-version"
