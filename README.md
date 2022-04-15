@@ -1,60 +1,59 @@
 # osx-colors [![ci](https://github.com/yuhonas/osx-colors/workflows/ci/badge.svg)](https://github.com/yuhonas/osx-colors/actions/workflows/ci.yml)
-## Description
 
-An in-depth paragraph about your project and overview of use.
+Sane command line color customisation for osx, no more fiddling about with `defaults`, internal apple color constants and rgb color codes
+
+Say you want to change your Accent/Highlight Color to Green like this
+
+![](./osx-general-preference-pane.jpg)
+
+
+If you wanted to change it via terminal, normally you'd need to do this
+
+```
+$ defaults write -g AppleAccentColor -string 3
+$ defaults write -g AppleHighlightColor -string "0.752941 0.964706 0.678431 Green"
+```
+
+Instead.... do this 😄
+
+```
+$ osx-colors set green
+```
+
+## Features
+
+* Sane color handling using color names
+* When provided a color in hex it'll find the "nearest" available apple color to it
+and set it to this, this is awesome if you use [pywal](https://github.com/dylanaraps/pywal) and want matching accent/highlight colors to your wallpaper
+* Restarts Finder,Docker,System Preferences etc upon setting so colors can be immediately seen
+
+## Why
+
+I'm a huge fan of [pywal](https://github.com/dylanaraps/pywal) and what I thought would really be the cherry on
+top would be Accent/Highlight colors that were based on the color palette of the wallaper, however I wasn't able
+to find anything that did it and color management from the commandline simply sucked, so I wrote this for my personal needs
+
+## Limitations
+
+At present you can only set both the `AccentColor` and `HighlightColor` together, however the `HighlightColor`
+can be customized to any color in the UI (from what I can see)
 
 ## Getting Started
 
 ### Dependencies
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+* MacOS Monterey (It probably works on others I just haven't tested it!)
+* Python 3.8 or greater
 
 ### Installing
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
-
-### Executing program
-
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
-```
-
-## Help
-
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
-
-## Authors
-
-Contributors names and contact info
-
-ex. Dominique Pizzie
-ex. [@DomPizzie](https://twitter.com/dompizzie)
-
-## Version History
-
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
-* 0.1
-    * Initial Release
+TBD
 
 ## License
 
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
+This project is licensed under the MIT license
 
 ## Acknowledgments
 
-Inspiration, code snippets, etc.
-* [awesome-readme](https://github.com/matiassingers/awesome-readme)
-* [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-* [dbader](https://github.com/dbader/readme-template)
-* [zenorocha](https://gist.github.com/zenorocha/4526327)
-* [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
-* https: // ofstack.com/python/11731/python-implements-a-method-to-find-the-closest-approximation-to-a-given-color-from-a-set-of-colors.html
+* Thanks to [ofstack](https://ofstack.com/python/11731/python-implements-a-method-to-find-the-closest-approximation-to-a-given-color-from-a-set-of-colors.html) for the code to match the "nearest" color, i'm no color scientist
+* Thanks to [quantum_libet](https://www.reddit.com/r/MacOS/comments/boju0v/cant_change_accent_color_in_mojave_terminal/) on reddit for a rundown on the insanity of color management via the terminal
