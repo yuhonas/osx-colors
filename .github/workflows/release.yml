@@ -1,10 +1,9 @@
 name: release to pypi
 on:
-  push:
-    branches:
-      - main
   release:
     types: [published]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 jobs:
   release:
     runs-on: ubuntu-latest
