@@ -1,4 +1,3 @@
-# https: // ofstack.com/python/11731/python-implements-a-method-to-find-the-closest-approximation-to-a-given-color-from-a-set-of-colors.html
 from colorsys import rgb_to_hsv
 
 APPLE_BLUE=4
