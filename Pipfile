@@ -9,6 +9,7 @@ name = "pypi"
 autopep8 = "*"
 pylint = "*"
 flake8 = "*"
+black = "*"
 
 [requires]
 python_version = "3"
