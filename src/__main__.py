@@ -59,7 +59,7 @@ def parse_args(parser):
     else:
         closest_color_name, closest_color = closest_colors_to(args.color)
 
-        logging.info("Searching for the closest Apple color to '%s' I found '%s'",
+        logger.info("Searching for the closest Apple color to '%s' I found '%s'",
           args.color,
           closest_color_name
         )
@@ -67,7 +67,7 @@ def parse_args(parser):
     logger.info("Setting the 'Accent Color' to '%s'", closest_color_name)
     logger.info("Setting the 'Highlight Color' to '%s'", closest_color_name)
 
-    logging.debug(
+    logger.debug(
       run([
         'defaults', 'write', '-g', 'AppleAccentColor', '-int', str(closest_color.accent_color_id)],
         check=True
