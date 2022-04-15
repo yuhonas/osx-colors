@@ -22,15 +22,15 @@ $ osx-colors set green
 
 ## Features
 
-* Sane color handling using color names
-* When provided a color in hex it'll find the "nearest" available apple color to it
+* Sane color handling using color names and a single command
+* Provide it a color in hex and it'll find the "nearest" available apple color to it
 and set it to this, this is awesome if you use [pywal](https://github.com/dylanaraps/pywal) and want matching accent/highlight colors to your wallpaper
 * Restarts Finder,Docker,System Preferences etc upon setting so colors can be immediately seen
 
 ## Why
 
 I'm a huge fan of [pywal](https://github.com/dylanaraps/pywal) and what I thought would really be the cherry on
-top would be Accent/Highlight colors that were based on the color palette of the wallaper, however I wasn't able
+top would be `Accent` & `Highlight` colors that were based on the color palette of the wallaper, however I wasn't able
 to find anything that did it and color management from the commandline simply sucked, so I wrote this for my personal needs
 
 ## Limitations
@@ -50,6 +50,37 @@ can be customized to any color in the UI (from what I can see)
 ```
 pip install osx-colors
 ```
+
+### Usage
+
+To set the `Accent` and `Highlight` color to Red
+
+```
+$ osx-colors set red
+Setting the 'Accent Color' to 'red'
+Setting the 'Highlight Color' to 'red'
+Restarting Finder, Spotlight and System Preferences, others may need to be restarted manually
+```
+
+To set the `Accent` and `Highlight` color to the closest color to the HEX color provided
+
+```
+$ osx-colors set 0029ff
+Searching for the closest Apple color to '0029ff' we found 'blue'
+Setting the 'Accent Color' to 'blue'
+Setting the 'Highlight Color' to 'blue'
+Restarting Finder, Spotlight and System Preferences, others may need to be restarted manually
+```
+
+For more usage instructions see
+```
+$ osx-colors --help
+```
+
+## TODO
+
+[] Better example of the wallpaper functionality, it's why I built it
+[] Ability to get colors
 
 ## License
 

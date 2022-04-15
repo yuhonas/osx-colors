@@ -48,6 +48,7 @@ def get_args():
     return parser
 
 def parse_args(parser):
+    """ Parse script arguments """
     args = parser.parse_args()
 
     logger = logging.getLogger()
@@ -58,7 +59,7 @@ def parse_args(parser):
     else:
         closest_color_name, closest_color = closest_colors_to(args.color)
 
-        logging.info("Searching for the closest Apple color to '%s' we found '%s'",
+        logging.info("Searching for the closest Apple color to '%s' I found '%s'",
           args.color,
           closest_color_name
         )

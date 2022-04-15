@@ -1,5 +1,5 @@
 setup: Pipfile Pipfile.lock
-	 	pip install --quiet pipenv
+	 	pip install --quiet pipenv --upgrade
 		pipenv install --dev
 
 lint:
@@ -7,3 +7,7 @@ lint:
 
 test: lint
 		python -m unittest
+
+release:
+		pip install --quiet build --upgrade
+		python -m build
