@@ -145,3 +145,5 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
+# osx finder meta data
+.DS_Store
