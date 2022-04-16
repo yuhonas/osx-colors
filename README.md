@@ -20,6 +20,12 @@ Instead.... do this 😄
 $ osx-colors set green
 ```
 
+Or to set your `Accent` & `Highlight` color based on the wallpaper pallete generated from [pywal](https://github.com/dylanaraps/pywal) also requires [jq](https://github.com/stedolan/jq)
+
+```
+$ osx-colors set $(cat ~/.cache/wal/colors.json | jq --raw-output '.colors.color9')
+```
+
 ## Features
 
 * Sane color handling using color names and a single command
@@ -29,19 +35,8 @@ and set it to this, this is awesome if you use [pywal](https://github.com/dylana
 
 ## Why
 
-I'm a huge fan of [pywal](https://github.com/dylanaraps/pywal) and what I thought would complete the color scheme would be `Accent` & `Highlight` colors in osx that were based on the generated color palette of the wallaper, however I wasn't able to find anything that did it and color management from the commandline simply sucked, so I wrote this for my personal needs and the final product looks something like this
+I'm a huge fan of [pywal](https://github.com/dylanaraps/pywal) and what I thought would complete the color scheme would be `Accent` & `Highlight` colors in osx that were based on the generated color palette of the wallaper, however I wasn't able to find anything that did it and color management from the commandline simply sucked, so I wrote this for my personal needs
 
-After you have generated a wallpaper eg.
-
-```
-$ wal -i ~/Pictures # will select a random wallpaper from the dir
-```
-
-To set your accent/highlight color based on the wallpaper pallete generated from pywal, requires [jq](https://github.com/stedolan/jq)
-
-```
-$ osx-colors set $(cat ~/.cache/wal/colors.json | jq --raw-output '.colors.color9')
-```
 
 ## Limitations
 
