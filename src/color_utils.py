@@ -34,7 +34,10 @@ def color_dist(color1, color2):
 def min_color_diff(color_to_match, colors):
     """returns the `(distance, color_name)` with the minimal distance to `colors`"""
     color_distances = (
-        (color_dist(color_to_match, apple_color.rgb), color_name)  # (distance to `test` color, color name)
+        (
+            color_dist(color_to_match, apple_color.rgb),
+            color_name,
+        )
         for color_name, apple_color in colors.items()
     )
 

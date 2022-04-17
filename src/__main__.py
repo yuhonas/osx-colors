@@ -1,12 +1,11 @@
 import argparse
 from subprocess import run
+import sys
 import logging
 from textwrap import dedent
 
 from .color_utils import closest_colors_to, APPLE_COLORS
 from . import settings
-
-SUPPORTED_COLOR_KEYWORD_ARGS = "|".join(APPLE_COLORS)
 
 logging.basicConfig(format="%(message)s", level=logging.INFO)
 
@@ -35,32 +34,41 @@ def get_args():
         "action", choices=["set"], help="action to perform, only 'set' is supported currently"
     )
 
-    parser.add_argument("color", help=f"color to set ({SUPPORTED_COLOR_KEYWORD_ARGS}) or a hex color")
+    parser.add_argument("color", help="color to set (" + "|".join(APPLE_COLORS) + ") or a hex color")
+
+    parser.add_argument("-q", "--quiet", help="quiet mode, don't output anything", action="store_true")
+
     parser.add_argument(
         "-s",
         "--skip-restart",
         action="store_true",
         help="skip restarting Finder, Spotlight and System Preferences",
     )
+
     parser.add_argument("-v", "--version", action="version", version=f"%(prog)s {settings.get_version()}")
 
     return parser
 
 
-def parse_args(parser):
+def parse_args(parser, args):
     """Parse script arguments"""
-    args = parser.parse_args()
+    parsed_args = parser.parse_args(args=args)
 
     logger = logging.getLogger()
 
-    if args.color in APPLE_COLORS:
-        closest_color_name = args.color
-        closest_color = APPLE_COLORS[args.color]
+    if parsed_args.quiet:
+        logger.disabled = True
+
+    if parsed_args.color in APPLE_COLORS:
+        closest_color_name = parsed_args.color
+        closest_color = APPLE_COLORS[parsed_args.color]
     else:
-        closest_color_name, closest_color = closest_colors_to(args.color)
+        closest_color_name, closest_color = closest_colors_to(parsed_args.color)
 
         logger.info(
-            "Searching for the closest Apple color to '%s' I found '%s'", args.color, closest_color_name
+            "Searching for the closest Apple color to '%s' found '%s'",
+            parsed_args.color,
+            closest_color_name,
         )
 
     logger.info("Setting the 'Accent Color' to '%s'", closest_color_name)
@@ -80,7 +88,7 @@ def parse_args(parser):
         )
     )
 
-    if not args.skip_restart:
+    if not parsed_args.skip_restart:
         logger.info(
             dedent(
                 """
@@ -97,7 +105,7 @@ def parse_args(parser):
 def main():
     parser = get_args()
 
-    parse_args(parser)
+    parse_args(parser, sys.argv[1:])
 
 
 if __name__ == "__main__":
