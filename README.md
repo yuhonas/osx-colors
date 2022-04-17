@@ -83,6 +83,12 @@ For more usage instructions see
 $ osx-colors --help
 ```
 
+## Contributing
+
+Feel free to lodge an issue regarding a feature request/bug report and we'll go from there!
+
+All contributions welcome 🙂
+
 ### Running the tests
 
 ```
@@ -91,18 +97,12 @@ $ make test
 
 For other build tasks see [Makefile](./Makefile)
 
-### Contributing
-
-Feel free to lodge an issue regarding a feature request/bug report and we'll go from there!
-
-All contributions welcome 🙂
-
 ### Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [Releases](https://github.com/yuhonas/osx-colors/releases) on this repository.
 
 
-## TODO
+### TODO
 
 - [ ] Ability to get colors - not sure of use case?
 - [ ] Ability to set a custom `Highlight` color
