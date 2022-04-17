@@ -1,13 +1,11 @@
 import unittest
 from unittest import mock
 from src.__main__ import get_args, parse_args
-import logging
 
 
 @mock.patch("src.__main__.run")
 class TestMain(unittest.TestCase):
-    def test_something(self, run_mock):
-        logging.disable('DEBUG')
+    def test_set_colors_to_green(self, run_mock):
         parser = get_args()
 
         parse_args(parser, ["set", "green", "--quiet"])
