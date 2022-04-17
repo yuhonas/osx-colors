@@ -4,10 +4,10 @@ setup: Pipfile Pipfile.lock
 
 lint:
 		pipenv run pylint ./src
-		pipenv run black ./src --check --line-length 110
+		pipenv run black ./src ./tests --check
 
 reformat:
-		pipenv run black ./src --line-length 110
+		pipenv run black ./src ./tests
 
 test: lint
 		python -m unittest
