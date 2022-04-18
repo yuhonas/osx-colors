@@ -7,7 +7,7 @@ from textwrap import dedent
 from .color_utils import closest_colors_to, APPLE_COLORS
 from . import settings
 
-logging.basicConfig(format="%(message)s", level=logging.INFO)
+logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.INFO)
 
 
 def get_args():
