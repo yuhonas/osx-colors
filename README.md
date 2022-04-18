@@ -23,7 +23,7 @@ $ osx-colors set green
 Or to set your `Accent` & `Highlight` color based on the wallpaper pallete generated from [pywal](https://github.com/dylanaraps/pywal) also requires [jq](https://github.com/stedolan/jq)
 
 ```
-$ osx-colors set $(cat ~/.cache/wal/colors.json | jq --raw-output '.colors.color9')
+$ osx-colors set $(jq --raw-output '.colors.color9' < ~/.cache/wal/colors.json)
 ```
 
 ## Features
