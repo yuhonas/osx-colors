@@ -30,6 +30,11 @@ class TestMain(unittest.TestCase):
             run_mock.call_args_list,
         )
 
+        self.assertIn(
+            mock.call(["osascript", "-e", mock.ANY], check=True),
+            run_mock.call_args_list,
+        )
+
         self.assertIn(mock.call(["killall", "Finder"], check=True), run_mock.call_args_list)
 
         self.assertIn(mock.call(["killall", "Spotlight"], check=True), run_mock.call_args_list)
