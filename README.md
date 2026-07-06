@@ -1,4 +1,4 @@
-# osx-colors [![ci](https://github.com/yuhonas/osx-colors/workflows/ci/badge.svg)](https://github.com/yuhonas/osx-colors/actions/workflows/ci.yml) ![./LICENSE](https://img.shields.io/badge/license-MIT-blue.svg)
+# osx-colors [![ci](https://github.com/yuhonas/osx-colors/actions/workflows/ci.yml/badge.svg)](https://github.com/yuhonas/osx-colors/actions/workflows/ci.yml)
 
 Sane command line color customisation for osx, no more fiddling about with `defaults`, internal apple color constants and rgb color codes
 
