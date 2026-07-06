@@ -1,4 +1,5 @@
-""" Some basic sanity tests """
+"""Some basic sanity tests"""
+
 import unittest
 from src.color_utils import closest_colors_to
 

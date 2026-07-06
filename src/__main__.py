@@ -16,16 +16,14 @@ def get_args():
         description="Sane command line color customization for osx",
         prog=settings.get_app_name(),
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog=dedent(
-            f"""
+        epilog=dedent(f"""
         Examples:
         # To set osx to use apples green
         $ {settings.get_app_name()} set green
 
         # To set the color based on closest matching apple color to a supplied one
         $ {settings.get_app_name()} set ff001d
-      """
-        ),
+      """),
     )
 
     # NOTE: This is more of a placeholder at current to support potentially adding a
@@ -89,13 +87,9 @@ def parse_args(parser, args):
     )
 
     if not parsed_args.skip_restart:
-        logger.info(
-            dedent(
-                """
+        logger.info(dedent("""
           Restarting Finder, Spotlight and System Preferences, others may need to be restarted manually
-        """
-            ).strip()
-        )
+        """).strip())
 
         run(["killall", "Finder"], check=True)
         run(["killall", "Spotlight"], check=True)
