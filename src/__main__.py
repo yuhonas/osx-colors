@@ -50,6 +50,10 @@ def get_args():
 
 def parse_args(parser, args):
     """Parse script arguments"""
+    if not args:
+        parser.print_help()
+        sys.exit(0)
+
     parsed_args = parser.parse_args(args=args)
 
     logger = logging.getLogger()
