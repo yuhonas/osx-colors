@@ -146,7 +146,7 @@ def get_color(_parsed_args, logger):
     if matched_color:
         logger.info(matched_color)
     else:
-        logger.info("unknown")
+        logger.error("Unknown Color")
 
 
 def main():

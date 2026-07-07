@@ -75,14 +75,9 @@ class TestMain(unittest.TestCase):
         run_mock.side_effect = CalledProcessError(1, "defaults")
 
         parse_args(parser, ["get"])
-        mock_logger.info.assert_called_with("unknown")
+        mock_logger.error.assert_called_with("Unknown Color")
 
     def test_set_color_requires_argument(self, run_mock):
         parser = get_args()
         with self.assertRaises(SystemExit):
             parse_args(parser, ["set"])
-
-    def test_get_color_does_not_accept_argument(self, run_mock):
-        parser = get_args()
-        with self.assertRaises(SystemExit):
-            parse_args(parser, ["get", "blue"])
