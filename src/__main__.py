@@ -1,5 +1,5 @@
 import argparse
-from subprocess import run
+from subprocess import run, CalledProcessError
 import sys
 import logging
 from textwrap import dedent
@@ -23,16 +23,19 @@ def get_args():
 
         # To set the color based on closest matching apple color to a supplied one
         $ {settings.get_app_name()} set ff001d
+
+        # To get the current color
+        $ {settings.get_app_name()} get
       """),
     )
 
-    # NOTE: This is more of a placeholder at current to support potentially adding a
-    # read action or others and it also just looks plain weird without a verb after the command
-    parser.add_argument(
-        "action", choices=["set"], help="action to perform, only 'set' is supported currently"
-    )
+    parser.add_argument("action", choices=["set", "get"], help="action to perform, 'set' or 'get'")
 
-    parser.add_argument("color", help="color to set (" + "|".join(APPLE_COLORS) + ") or a hex color")
+    parser.add_argument(
+        "color",
+        nargs="?",
+        help="color to set (" + "|".join(APPLE_COLORS) + ") or a hex color",
+    )
 
     parser.add_argument("-q", "--quiet", help="quiet mode, don't output anything", action="store_true")
 
@@ -57,6 +60,15 @@ def parse_args(parser, args):
     if parsed_args.quiet:
         logger.disabled = True
 
+    if parsed_args.action == "set":
+        if not parsed_args.color:
+            parser.error("the following arguments are required: color")
+        set_color(parsed_args, logger)
+    elif parsed_args.action == "get":
+        get_color(parsed_args, logger)
+
+
+def set_color(parsed_args, logger):
     if parsed_args.color in APPLE_COLORS:
         closest_color_name = parsed_args.color
         closest_color = APPLE_COLORS[parsed_args.color]
@@ -94,6 +106,45 @@ def parse_args(parser, args):
         run(["killall", "Finder"], check=True)
         run(["killall", "Spotlight"], check=True)
         run(["osascript", "-e", 'tell application "System Preferences" to quit'], check=True)
+
+
+def get_color(_parsed_args, logger):
+    accent_id = None
+    highlight_id = None
+    try:
+        res = run(
+            ["defaults", "read", "-g", "AppleAccentColor"],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        accent_id = res.stdout.strip()
+    except CalledProcessError:
+        pass
+
+    try:
+        res = run(
+            ["defaults", "read", "-g", "AppleHighlightColor"],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        highlight_id = res.stdout.strip()
+    except CalledProcessError:
+        pass
+
+    matched_color = None
+    for name, apple_color in APPLE_COLORS.items():
+        if (accent_id is not None and str(apple_color.accent_color_id) == str(accent_id)) or (
+            highlight_id is not None and apple_color.highlight_color_id == highlight_id
+        ):
+            matched_color = name
+            break
+
+    if matched_color:
+        logger.info(matched_color)
+    else:
+        logger.error("Unknown Color")
 
 
 def main():

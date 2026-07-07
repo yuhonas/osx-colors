@@ -78,6 +78,13 @@ Setting the 'Highlight Color' to 'blue'
 Restarting Finder, Spotlight and System Preferences, others may need to be restarted manually
 ```
 
+To get the current `Accent` and `Highlight` color
+
+```
+$ osx-colors get
+purple
+```
+
 For more usage instructions see
 ```
 $ osx-colors --help
@@ -104,7 +111,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ### TODO
 
-- [ ] Ability to get colors - not sure of use case?
+- [x] Ability to get colors - not sure of use case?
 - [ ] Ability to set a custom `Highlight` color
 
 ## License
