@@ -48,8 +48,8 @@ can be customized to any color in the UI (from what I can see)
 
 ### Dependencies
 
-* MacOS Monterey (It probably works on others I just haven't tested it!)
-* Python 3.8 or greater
+* MacOS Monterey or greater
+* Python 3.9 or greater
 
 ### Installing
 
