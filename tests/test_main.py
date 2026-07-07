@@ -41,3 +41,8 @@ class TestMain(unittest.TestCase):
             ),
             run_mock.call_args_list,
         )
+
+    def test_set_color_invalid_hex(self, run_mock):
+        parser = get_args()
+        with mock.patch("sys.stderr"), self.assertRaises(SystemExit):
+            parse_args(parser, ["set", "invalid_color_value"])

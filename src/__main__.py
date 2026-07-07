@@ -61,7 +61,13 @@ def parse_args(parser, args):
         closest_color_name = parsed_args.color
         closest_color = APPLE_COLORS[parsed_args.color]
     else:
-        closest_color_name, closest_color = closest_colors_to(parsed_args.color)
+        try:
+            closest_color_name, closest_color = closest_colors_to(parsed_args.color)
+        except ValueError:
+            parser.error(
+                f"Invalid color: '{parsed_args.color}', expected "
+                f"({','.join(APPLE_COLORS.keys())}) or in hex eg. '#00FF00'"
+            )
 
         logger.info(
             "Searching for the closest Apple color to '%s' found '%s'",
