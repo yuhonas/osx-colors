@@ -1,3 +1,5 @@
+.PHONY: setup lint reformat test release
+
 setup: Pipfile Pipfile.lock
 	 	pip install --quiet pipenv --upgrade
 		pipenv install --dev
