@@ -57,6 +57,10 @@ def parse_args(parser, args):
     if parsed_args.quiet:
         logger.disabled = True
 
+    set_color(parsed_args, logger)
+
+
+def set_color(parsed_args, logger):
     if parsed_args.color in APPLE_COLORS:
         closest_color_name = parsed_args.color
         closest_color = APPLE_COLORS[parsed_args.color]
