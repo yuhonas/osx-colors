@@ -29,8 +29,6 @@ def get_args():
       """),
     )
 
-    # NOTE: This is more of a placeholder at current to support potentially adding a
-    # read action or others and it also just looks plain weird without a verb after the command
     parser.add_argument("action", choices=["set", "get"], help="action to perform, 'set' or 'get'")
 
     parser.add_argument(
