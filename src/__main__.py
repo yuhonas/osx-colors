@@ -3,6 +3,7 @@ from subprocess import run
 import sys
 import logging
 from textwrap import dedent
+from importlib.resources import files, as_file
 
 from .color_utils import closest_colors_to, APPLE_COLORS
 from . import settings
@@ -41,6 +42,13 @@ def get_args():
         "--skip-restart",
         action="store_true",
         help="skip restarting Finder, Spotlight and System Preferences",
+    )
+
+    parser.add_argument(
+        "-n",
+        "--skip-notify",
+        action="store_true",
+        help="skip notifying running apps of the color change",
     )
 
     parser.add_argument("-v", "--version", action="version", version=f"%(prog)s {settings.get_version()}")
@@ -95,6 +103,12 @@ def parse_args(parser, args):
             check=True,
         )
     )
+
+    if not parsed_args.skip_notify:
+        logger.info("Notifying running apps of the color change")
+        applescript_ref = files("src").joinpath("notify_apps.applescript")
+        with as_file(applescript_ref) as applescript_path:
+            run(["osascript", str(applescript_path)], check=True)
 
     if not parsed_args.skip_restart:
         logger.info(dedent("""
