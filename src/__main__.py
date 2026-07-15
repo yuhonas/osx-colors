@@ -3,6 +3,7 @@ from subprocess import run
 import sys
 import logging
 from textwrap import dedent
+from importlib.resources import files, as_file
 
 from .color_utils import closest_colors_to, APPLE_COLORS
 from . import settings
@@ -95,16 +96,11 @@ def parse_args(parser, args):
         )
     )
 
-    notify_applescript = '''
-    use framework "Foundation"
-    set theCenter to current application's NSDistributedNotificationCenter's defaultCenter()
-    theCenter's postNotificationName:"AppleColorPreferencesChangedNotification" object:(missing value) userInfo:(missing value) deliverImmediately:true
-    theCenter's postNotificationName:"AppleAquaColorVariantChanged" object:(missing value) userInfo:(missing value) deliverImmediately:true
-    '''
-
     if not parsed_args.skip_notify:
         logger.info("Notifying running apps of the color change")
-        run(["osascript", "-e", dedent(notify_applescript)], check=True)
+        applescript_ref = files("src").joinpath("notify_apps.applescript")
+        with as_file(applescript_ref) as applescript_path:
+            run(["osascript", str(applescript_path)], check=True)
 
     if not parsed_args.skip_restart:
         logger.info(
