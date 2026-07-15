@@ -50,7 +50,7 @@ def get_args():
         "-n", 
         "--skip-notify",
         action="store_true",
-        help="skip posting the distributed notifications used for live updates",
+        help="skip notifying running apps of the color change",
     )
 
     parser.add_argument("-v", "--version", action="version", version=f"%(prog)s {settings.get_version()}")
