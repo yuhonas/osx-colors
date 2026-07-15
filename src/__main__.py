@@ -17,16 +17,14 @@ def get_args():
         description="Sane command line color customization for osx",
         prog=settings.get_app_name(),
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog=dedent(
-            f"""
+        epilog=dedent(f"""
         Examples:
         # To set osx to use apples green
         $ {settings.get_app_name()} set green
 
         # To set the color based on closest matching apple color to a supplied one
         $ {settings.get_app_name()} set ff001d
-      """
-        ),
+      """),
     )
 
     # NOTE: This is more of a placeholder at current to support potentially adding a
@@ -60,6 +58,10 @@ def get_args():
 
 def parse_args(parser, args):
     """Parse script arguments"""
+    if not args:
+        parser.print_help()
+        sys.exit(0)
+
     parsed_args = parser.parse_args(args=args)
 
     logger = logging.getLogger()
@@ -71,7 +73,13 @@ def parse_args(parser, args):
         closest_color_name = parsed_args.color
         closest_color = APPLE_COLORS[parsed_args.color]
     else:
-        closest_color_name, closest_color = closest_colors_to(parsed_args.color)
+        try:
+            closest_color_name, closest_color = closest_colors_to(parsed_args.color)
+        except ValueError:
+            parser.error(
+                f"Invalid color: '{parsed_args.color}', expected "
+                f"({','.join(APPLE_COLORS.keys())}) or in hex eg. '#00FF00'"
+            )
 
         logger.info(
             "Searching for the closest Apple color to '%s' found '%s'",
@@ -103,13 +111,9 @@ def parse_args(parser, args):
             run(["osascript", str(applescript_path)], check=True)
 
     if not parsed_args.skip_restart:
-        logger.info(
-            dedent(
-                """
+        logger.info(dedent("""
           Restarting Finder, Spotlight and System Preferences, others may need to be restarted manually
-        """
-            ).strip()
-        )
+        """).strip())
 
         run(["killall", "Finder"], check=True)
         run(["killall", "Spotlight"], check=True)
