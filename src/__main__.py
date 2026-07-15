@@ -45,7 +45,7 @@ def get_args():
     )
 
     parser.add_argument(
-        "-n", 
+        "-n",
         "--skip-notify",
         action="store_true",
         help="skip notifying running apps of the color change",
