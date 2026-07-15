@@ -31,7 +31,7 @@ class TestMain(unittest.TestCase):
         )
 
         self.assertIn(
-            mock.call(["osascript", "-e", mock.ANY], check=True),
+            mock.call(["osascript", mock.ANY], check=True),
             run_mock.call_args_list,
         )
 
