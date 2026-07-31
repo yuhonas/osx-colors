@@ -31,6 +31,7 @@ $ osx-colors set $(jq --raw-output '.colors.color9' < ~/.cache/wal/colors.json)
 * Sane color handling using color names and a single command
 * Provide it a color in hex and it'll find the "nearest" available apple color to it
 and set it to this, this is awesome if you use [pywal](https://github.com/dylanaraps/pywal) and want matching accent/highlight colors to your wallpaper
+* Notifies running apps of the color change
 * Restarts Finder,Docker,System Preferences etc upon setting so colors can be immediately seen
 
 ## Why
@@ -65,6 +66,7 @@ To set the `Accent` and `Highlight` color to Red
 $ osx-colors set red
 Setting the 'Accent Color' to 'red'
 Setting the 'Highlight Color' to 'red'
+Notifying running apps of the color change
 Restarting Finder, Spotlight and System Preferences, others may need to be restarted manually
 ```
 
@@ -75,6 +77,7 @@ $ osx-colors set 0029ff
 Searching for the closest Apple color to '0029ff' we found 'blue'
 Setting the 'Accent Color' to 'blue'
 Setting the 'Highlight Color' to 'blue'
+Notifying running apps of the color change
 Restarting Finder, Spotlight and System Preferences, others may need to be restarted manually
 ```
 
